@@ -1,9 +1,7 @@
 
 #%%
 
-import random
-
-import cv2 
+import cv2
 from keras.models import load_model
 import numpy as np
 import random 
@@ -82,13 +80,13 @@ cv2.putText(frame,str(player_input), (52,400),cv2.FONT_HERSHEY_SIMPLEX, 1.7, (0,
 #display the number of rounds
 #display the points being collected
 #%%
-if (player_input == rock1 and computer_input == paper) or (player_input ==paper1 and computer_input==scissors) or (player_input == scissors1 and computer_input ==paper)
+if (player_input == rock1 and computer_input == paper) or (player_input ==paper1 and computer_input==scissors) or (player_input == scissors1 and computer_input ==paper):
     print('player wins')
 
-elif (player_input ==rock1 and computer_input ==rock) or (player_input ==paper1 and computer_input==paper) or (player_input == scissors1 and computer_input ==scissor)
+elif (player_input ==rock1 and computer_input ==rock) or (player_input ==paper1 and computer_input==paper) or (player_input == scissors1 and computer_input == scissors):
     print('Draw')
 
-elif (player_input ==paper1 and computer_input ==rock) or (player_input ==rock1 and computer_input ==scissors) or (player_input == scissors1 and computer_input ==rock)
+elif (player_input ==paper1 and computer_input ==rock) or (player_input ==rock1 and computer_input ==scissors) or (player_input == scissors1 and computer_input ==rock):
     print('computer wins')
 
 else :

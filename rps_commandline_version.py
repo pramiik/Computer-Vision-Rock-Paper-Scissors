@@ -1,31 +1,33 @@
 #%%
 import random
 
-player_input = input()
-#get the random choice from computer 
-game_options= [ 'rock', 'paper', 'scissors']
-computer_input = random.choice(game_options)
-print (computer_input)
-game =True
-n=[]
-p=[]
-c=[]
+def play():
+    game_options= [ 'rock', 'paper', 'scissors']
+    computer_input = random.choice(game_options)
+    print (f"computer's choice is {computer_input}")
+    
+    player_input = input()
 
-for n in range(5):
-    while game is True:
+    print(f"player's choice is {player_input}")
 
+
+    while True:
         if (player_input == 'rock' and computer_input == 'paper') or (player_input == 'paper' and computer_input=='scissors') or (player_input == 'scissors' and computer_input == 'paper'):
-            player_points= p+1 and print(f"player wins! /n computer: {computer_points} /n player: {player_points}")
-
+            print('player wins!')
+            
         elif (player_input ==  'rock'   and computer_input == 'rock' ) or (player_input =='paper' and computer_input=='paper') or (player_input == 'scissors' and computer_input =='scissor'):
-            print(f"Draw/n computer: {computer_points} /n player: {player_points}")
+            print('Draw!')
 
         elif (player_input == 'paper'  and computer_input == 'rock' ) or (player_input == 'rock' and computer_input =='scissors') or (player_input == 'scissors' and computer_input == 'rock' ):
-            computer_points = c+1 and print("computer wins! /n computer: {computer_points} /n player: {player_points}")
+            print('computer wins! ')
 
         else:
             print('try again')
 
+        
         if ord('q'):
             break
+
+
+play()
 # %%
