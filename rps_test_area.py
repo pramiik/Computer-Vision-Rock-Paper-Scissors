@@ -85,10 +85,42 @@ t = 3
 countdown(int(t))
 
 # %%
+import time
+
+def countdown():
+    t=3
+    while t:
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}'.format(secs)
+        print(timer, end="\r")
+        t -= 1
+
+countdown(int(t))
+
+#%%
+# import the time module
+import time
+
+# define the countdown func.
+def countdown(t):
+	
+	while t:
+		mins, secs = divmod(t, 60)
+		timer = '{:02d}:{:02d}'.format(mins, secs)
+		print(timer, end="\r")
+		time.sleep(1)
+		t -= 1
+	
+	print('Fire in the hole!!')
 
 
+# input time in seconds
+t = 10
 
+# function call
+countdown(int(t))
 
+#%%
 
 
 
@@ -158,17 +190,15 @@ cv2.putText (frame, str(draw), (115, 350), Cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25
 
 
 
-#%%
-
+'''
 
 
     cv2.putText(frame,"player:", (25, 410), cv2. FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255))
     cv2.putText (frame,"Computer: ", (300, 418), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255))
-    cv2.putText(frame, 
-    "player points:",(25, 380), cv2. FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
+    cv2.putText(frame, "player points:",(25, 380), cv2. FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
     cv2.putText(frame, "computer points: ", (25, 325), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
 
-    #cv2.putText (frame,"Draw: ", (25, 350), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
+    cv2.putText (frame,"Draw: ", (25, 350), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
     
 
     
@@ -178,8 +208,5 @@ cv2.putText (frame, str(draw), (115, 350), Cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25
     cv2.putText (frame, str(loss), (110, 325), cv2. FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
     cv2.putText (frame, str(draw), (115, 350), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
 
-'''
 
-
-
-
+# %%
