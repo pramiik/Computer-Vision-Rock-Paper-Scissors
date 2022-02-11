@@ -264,46 +264,6 @@ while player_points or computer_points <4:
 #%%
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 '''
 cv2.putText(frame,"Press"q' to quit at any time", (25, 25), Cv2.FONT _HERSHEY DUPLEX, 0.5, (150, 0, 255))
 cv2.putText 
@@ -344,4 +304,177 @@ cv2.putText (frame, str(draw), (115, 350), Cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25
     cv2.putText (frame, str(draw), (115, 350), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
 
 
+#%%
+
+import cv2
+import numpy as np
+import random 
+import time
+
+t = time.time()
+cap = cv2.VideoCapture(0)
+
+count = 3
+while True:
+    
+    ret, frame = cap.read()
+    t_elapsed = time.time() - t
+    timer = int(count - round(t_elapsed, 0))
+    if timer == 0:
+        t = time.time()
+    cv2.putText(frame, str(timer), (52,457),cv2.FONT_HERSHEY_SIMPLEX, 1.7, (0, 0, 0), 5, cv2.LINE_4)
+    cv2.imshow('frame', frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
 # %%
+import cv2
+from keras.models import load_model
+import numpy as np
+import random 
+import time
+import sys
+model = load_model('keras_model.h5')
+cap = cv2.VideoCapture(0)
+data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+player_points = int()
+computer_points =int()
+game =int()
+
+
+'''
+t=3
+def countdown(t):
+    while t:
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}'.format(secs)
+        print(timer, end="\r")
+        t -= 1
+
+'''
+
+
+game_options= [ "rock", "paper", "scissors"]
+
+def countdown():
+    
+    computer_input = random.choice(game_options)
+    #print (f" computer's choice is {computer_input}")
+    t=20
+    while t: #in range(5):
+
+
+    
+        cv2.putText(frame, computer_input, (392, 363), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255),3,cv2.LINE_4)
+
+        rock1 = prediction[0][0] > 0.7
+        paper1 = prediction[0][1] > 0.7
+        scissors1 = prediction[0][2] > 0.7
+        nothing1 = prediction[0][3] > 0.7 
+
+        prediction1=[rock1, paper1, scissors1, nothing1]
+
+
+        if prediction1[0] == True:
+            player_choice = "rock1"
+        elif prediction1[1] == True:
+            player_choice = "paper1"
+        elif prediction1[2] == True:
+            player_choice = "scissors1"
+        else:
+            player_choice = "Try Again"    
+
+
+        #print (f" player's choice is {player_input}")
+
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}'.format(secs)
+        print(timer, end="\r")
+        time.sleep(0.01)
+        t -= 1
+    
+    player_input = player_choice
+
+    #cv2.putText(frame,(timer), (250,250),cv2.FONT_HERSHEY_SIMPLEX, 1.7, (0, 0, 0),5, cv2.LINE_4)
+
+    #cv2.putText(frame,'player:', (25, 410), cv2. FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255))
+    cv2.putText (frame,player_input, (75, 363), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255),3)
+
+    
+
+    global player_points 
+    global computer_points
+    global game 
+    
+    
+    if (player_input =="paper1" and computer_input == "rock")  or (player_input =="rock1" and computer_input == "scissors")  or (player_input == "scissors1" and computer_input == "paper") :
+        print("player wins")    
+        player_points +=1
+        game +=1
+
+    elif (player_input == "rock1" and computer_input == "rock")  or (player_input =="paper1" and computer_input== "paper")  or (player_input == "scissors1" and computer_input ==  "scissors") :
+        print("Draw")
+        game +=1
+
+    elif (player_input == "rock1" and computer_input ==  "paper")  or (player_input =="paper1" and computer_input== "scissors")  or (player_input == "scissors1" and computer_input == "rock") :
+        print("computer wins")
+        computer_points +=1
+        game +=1
+        
+
+    else :
+        print('try again')
+
+
+
+    cv2.putText(frame, str(player_points), (117, 471), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255),3)
+
+    cv2.putText (frame, str(computer_points), (445, 471), cv2. FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255),3)
+    
+
+    cv2.putText (frame, str(game), (332, 32), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0),3)
+
+    #cv2.waitKey(1) == ord('e')
+
+    #print(f"computer points is {type(computer_points)}")
+    #print(f"player point is {type(player_points)}")
+    #print(f"game: {type(game)}")
+
+
+
+
+while player_points or computer_points <=3: 
+    ret, frame = cap.read()
+    resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+    image_np = np.array(resized_frame)
+    normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
+    data[0] = normalized_image
+    prediction = model.predict(data)
+
+    cv2.putText(frame,'Player vs Computer', (54,426),cv2.FONT_HERSHEY_SIMPLEX, 1.7, (0, 0, 0), 5, cv2.LINE_4)
+
+    #cv2.putText (frame,'Computer: ', (300, 418), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),5, cv2.LINE_4)
+    #cv2.putText(frame, 'player points:',(25, 380), cv2. FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
+    #cv2.putText(frame, 'computer points: ', (25, 325), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
+    cv2.putText (frame,'number of games: ', (25, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255),5)
+
+
+
+
+    countdown()
+
+
+    cv2.imshow('frame', frame)
+    
+
+
+
+    # Press q to close the window
+    #print(prediction)
+
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
